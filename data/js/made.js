@@ -24,6 +24,10 @@ function update(mode) {
         if (source.lenght != 0) {
             var html = converter.makeHtml(source);
             $('#preview').html(html);
+            $("#preview code").each(function(i, c){
+                c = $(c);
+                c.html(c.html().replace(/\*\*/g,"<strong>").replace(/__/g,"</strong>"));
+            });
         }
     }
     setTimeout(update, 1000);
@@ -220,6 +224,10 @@ $(document).ready(function () {
         onresize();
         resume_state();
     }, 10);
+
+    key('ctrl+q', function(){
+        export_html(MODE_FULL);
+    })
 });
 
 window.onunload = function () {
